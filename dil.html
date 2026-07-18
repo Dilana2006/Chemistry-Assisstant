@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>ChemAI Report Generator</title>
+
+    <link rel="stylesheet" href="dil.css">
+</head>
+
+
+<body>
+
+
+<header>
+
+    <h1>🧪 ChemAI</h1>
+
+    <p>
+        Upload a 2D chemical structure and generate an AI chemistry report
+    </p>
+
+</header>
+
+
+
+<main>
+
+
+<div class="container">
+
+
+<h2>Upload Molecule Image</h2>
+
+
+<p>
+Upload a Lewis structure, molecular drawing, or chemistry model image.
+</p>
+
+
+
+<input 
+type="file" 
+id="imageInput"
+accept="image/*">
+
+
+
+<div class="image-box">
+
+<img id="imagePreview" 
+alt="Molecule Preview">
+
+<p id="placeholder">
+No image uploaded
+</p>
+
+</div>
+
+
+
+<button id="generateBtn">
+
+Generate Word Report 📄
+
+</button>
+
+
+
+<div id="status">
+
+Waiting for image...
+
+</div>
+
+
+
+</div>
+
+
+</main>
+
+
+
+<footer>
+
+<p>
+Powered by AI + Chemistry + Automation
+</p>
+
+</footer>
+
+
+
+<script src="dil.js"></script>
+
+
+</body>
+
+</html>
