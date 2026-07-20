@@ -4,6 +4,8 @@ const imagePreview = document.getElementById("imagePreview");
 
 const placeholder = document.getElementById("placeholder");
 
+const chemicalNameInput = document.getElementById("chemicalNameInput");
+
 const generateBtn = document.getElementById("generateBtn");
 
 const status = document.getElementById("status");
@@ -13,6 +15,8 @@ const status = document.getElementById("status");
 let uploadedImage = null;
 
 
+
+// IMAGE UPLOAD
 
 imageInput.addEventListener("change", function(){
 
@@ -58,15 +62,23 @@ imageInput.addEventListener("change", function(){
 
 
 
+// GENERATE REPORT BUTTON
+
 generateBtn.addEventListener("click", function(){
 
 
 
-    if(!uploadedImage){
+    const chemicalName = chemicalNameInput.value.trim();
+
+
+
+    // Check if user gave any input
+
+    if(!uploadedImage && chemicalName === ""){
 
 
         status.innerHTML =
-        "⚠️ Please upload a molecule image first";
+        "⚠️ Upload an image or enter a chemical name";
 
 
         return;
@@ -77,27 +89,38 @@ generateBtn.addEventListener("click", function(){
 
 
     status.innerHTML =
-    "🧪 AI is analyzing molecule and creating Word report...";
+    "🧪 AI is identifying chemical and creating Word report...";
+
+
 
 
 
     /*
     
-    Later we connect n8n here:
+    Future n8n connection:
 
     Website
-       |
-       |
-    n8n webhook
-       |
-       |
-    AI Vision
-       |
-       |
-    Microsoft Word file
+        |
+        |
+    n8n Webhook
+        |
+        |
+    IF Node
+      /    \
+ Image?   Text?
+   |        |
+Vision AI  Chemical Search
+      \    /
+       Merge
+        |
+   Chemistry AI Agent
+        |
+   Word Report
 
 
     */
+
+
 
 
 

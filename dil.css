@@ -71,13 +71,65 @@ main{
 
 
 
-input{
+/* Section headings */
+
+h2{
+
+    margin-bottom:10px;
+
+}
+
+
+h3{
+
+    margin-top:25px;
+    color:#2563eb;
+
+}
+
+
+
+/* File upload */
+
+input[type="file"]{
 
     margin:20px;
 
 }
 
 
+
+/* Chemical name input */
+
+#chemicalNameInput{
+
+    width:90%;
+
+    padding:14px;
+
+    margin:15px;
+
+    border-radius:10px;
+
+    border:2px solid #2563eb;
+
+    font-size:16px;
+
+}
+
+
+
+#chemicalNameInput:focus{
+
+    outline:none;
+
+    border-color:#1d4ed8;
+
+}
+
+
+
+/* Image preview */
 
 .image-box{
 
@@ -120,6 +172,22 @@ input{
 
 
 
+/* Divider */
+
+hr{
+
+    margin:30px 0;
+
+    border:none;
+
+    border-top:2px solid #e2e8f0;
+
+}
+
+
+
+/* Button */
+
 button{
 
     margin-top:25px;
@@ -150,6 +218,8 @@ button:hover{
 
 
 
+/* Status box */
+
 #status{
 
     margin-top:25px;
@@ -165,6 +235,8 @@ button:hover{
 }
 
 
+
+/* Footer */
 
 footer{
 

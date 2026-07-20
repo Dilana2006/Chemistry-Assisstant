@@ -19,7 +19,7 @@
     <h1>🧪 ChemAI</h1>
 
     <p>
-        Upload a 2D chemical structure and generate an AI chemistry report
+        Identify chemicals and generate AI-powered chemistry reports
     </p>
 
 </header>
@@ -32,13 +32,22 @@
 <div class="container">
 
 
-<h2>Upload Molecule Image</h2>
+<h2>Find Chemical Information</h2>
 
+
+<p>
+Upload a chemical structure image or enter the chemical name.
+</p>
+
+
+
+<!-- IMAGE OPTION -->
+
+<h3>📷 Upload Molecule Image</h3>
 
 <p>
 Upload a Lewis structure, molecular drawing, or chemistry model image.
 </p>
-
 
 
 <input 
@@ -61,6 +70,29 @@ No image uploaded
 
 
 
+<hr>
+
+
+
+<!-- TEXT OPTION -->
+
+<h3>⌨️ Enter Chemical Name</h3>
+
+
+<p>
+Example: Benzene, Aspirin, Caffeine
+</p>
+
+
+<input
+type="text"
+id="chemicalNameInput"
+placeholder="Enter chemical name here">
+
+
+
+
+
 <button id="generateBtn">
 
 Generate Word Report 📄
@@ -71,7 +103,7 @@ Generate Word Report 📄
 
 <div id="status">
 
-Waiting for image...
+Waiting for input...
 
 </div>
 
