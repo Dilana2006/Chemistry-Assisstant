@@ -1,138 +1,167 @@
+// =====================================
+// ChemAI - n8n Webhook Connection
+// =====================================
+
+const webhookURL = "https://d2006d.app.n8n.cloud/webhook/chemistry-assistant";
+
 const imageInput = document.getElementById("imageInput");
-
-const imagePreview = document.getElementById("imagePreview");
-
-const placeholder = document.getElementById("placeholder");
-
 const chemicalNameInput = document.getElementById("chemicalNameInput");
-
 const generateBtn = document.getElementById("generateBtn");
-
 const status = document.getElementById("status");
 
 
+// Image preview
+imageInput.addEventListener("change", () => {
 
-let uploadedImage = null;
+    const file = imageInput.files[0];
 
+    if (file) {
 
+        const preview = document.getElementById("imagePreview");
 
-// IMAGE UPLOAD
+        preview.src = URL.createObjectURL(file);
 
-imageInput.addEventListener("change", function(){
+        preview.style.display = "block";
 
-
-    const file = this.files[0];
-
-
-    if(file){
-
-
-        uploadedImage = file;
-
-
-        const reader = new FileReader();
-
-
-
-        reader.onload = function(e){
-
-
-            imagePreview.src = e.target.result;
-
-            placeholder.style.display="none";
-
-
-        }
-
-
-
-        reader.readAsDataURL(file);
-
-
-        status.innerHTML =
-        "✅ Image uploaded successfully";
-
-
+        document.getElementById("placeholder").style.display = "none";
     }
-
 
 });
 
 
 
+// Generate report button
+generateBtn.addEventListener("click", async () => {
 
 
-// GENERATE REPORT BUTTON
-
-generateBtn.addEventListener("click", function(){
+    status.innerHTML = "🧪 Preparing chemistry analysis...";
 
 
+    try {
 
-    const chemicalName = chemicalNameInput.value.trim();
+        const formData = new FormData();
+
+
+        // IMAGE BRANCH
+        if (imageInput.files.length > 0) {
+
+            status.innerHTML =
+            "📷 Sending molecule image to ChemAI...";
+
+
+            // IMPORTANT:
+            // n8n expects binary field called "data"
+            formData.append(
+                "data",
+                imageInput.files[0]
+            );
+
+        }
+
+
+        // TEXT BRANCH
+        else if (chemicalNameInput.value.trim() !== "") {
+
+
+            status.innerHTML =
+            "🧬 Sending chemical name to ChemAI...";
+
+
+            formData.append(
+                "chemicalName",
+                chemicalNameInput.value.trim()
+            );
+
+        }
+
+
+        else {
+
+            status.innerHTML =
+            "⚠️ Upload an image or enter a chemical name.";
+
+            return;
+
+        }
 
 
 
-    // Check if user gave any input
+        const response = await fetch(
+            webhookURL,
+            {
+                method: "POST",
+                body: formData
+            }
+        );
 
-    if(!uploadedImage && chemicalName === ""){
+
+
+        if (!response.ok) {
+
+            throw new Error(
+                "n8n webhook failed"
+            );
+
+        }
+
 
 
         status.innerHTML =
-        "⚠️ Upload an image or enter a chemical name";
+        "📄 Creating Word chemistry report...";
 
 
-        return;
+
+        const blob = await response.blob();
+
+
+
+        const filename =
+        "ChemAI_Chemistry_Report.docx";
+
+
+
+        const url =
+        window.URL.createObjectURL(blob);
+
+
+
+        const link =
+        document.createElement("a");
+
+
+        link.href = url;
+
+        link.download = filename;
+
+
+        document.body.appendChild(link);
+
+        link.click();
+
+        link.remove();
+
+
+        window.URL.revokeObjectURL(url);
+
+
+
+        status.innerHTML =
+        "✅ Chemistry report generated successfully!";
 
 
     }
 
 
-
-    status.innerHTML =
-    "🧪 AI is identifying chemical and creating Word report...";
+    catch(error) {
 
 
-
-
-
-    /*
-    
-    Future n8n connection:
-
-    Website
-        |
-        |
-    n8n Webhook
-        |
-        |
-    IF Node
-      /    \
- Image?   Text?
-   |        |
-Vision AI  Chemical Search
-      \    /
-       Merge
-        |
-   Chemistry AI Agent
-        |
-   Word Report
-
-
-    */
-
-
-
-
-
-    setTimeout(function(){
+        console.error(error);
 
 
         status.innerHTML =
-        "✅ Report generated! (n8n connection coming next)";
+        "❌ Error connecting to ChemAI.";
 
-
-    },3000);
-
+    }
 
 
 });
